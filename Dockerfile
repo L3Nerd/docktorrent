@@ -2,8 +2,8 @@ FROM debian:jessie
 
 MAINTAINER kfei <kfei@kfei.net>
 
-ENV VER_LIBTORRENT 0.13.4
-ENV VER_RTORRENT 0.9.4
+ENV VER_LIBTORRENT 0.13.6
+ENV VER_RTORRENT 0.9.6
 
 WORKDIR /usr/local/src
 
@@ -72,14 +72,6 @@ RUN apt-get update && apt-get install -q -y --no-install-recommends \
     unrar-free \
     unzip
 
-# For ffmpeg, which is required by the ruTorrent screenshots plugin
-# This increases ~53 MB of the image size, remove it if you really don't need screenshots
-RUN echo "deb http://www.deb-multimedia.org jessie main" >> /etc/apt/sources.list && \
-    apt-key adv --keyserver ha.pool.sks-keyservers.net --recv-keys A401FF99368FA1F98152DE755C808C2B65558117 && \
-    apt-get update && apt-get install -q -y --no-install-recommends \
-    deb-multimedia-keyring \
-    ffmpeg
-
 # IMPORTANT: Change the default login/password of ruTorrent before build
 RUN htpasswd -cb /usr/share/nginx/html/rutorrent/.htpasswd docktorrent p@ssw0rd
 
@@ -98,10 +90,7 @@ COPY rootfs /
 ENTRYPOINT ["/usr/local/bin/docktorrent"]
 
 # Declare ports to expose
-EXPOSE 80 9527 45566
+EXPOSE 80 45566
 
 # Declare volumes
 VOLUME ["/rtorrent", "/var/log"]
-
-# This should be removed in the latest version of Docker
-ENV HOME /root
