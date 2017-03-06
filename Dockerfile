@@ -21,7 +21,7 @@ RUN build_deps="automake build-essential ca-certificates libc-ares-dev libcppuni
     cd .. && \
     rm -rf curl-* && \
     ldconfig && \
-    svn --trust-server-cert checkout https://svn.code.sf.net/p/xmlrpc-c/code/stable/ xmlrpc-c && \
+    svn --trust-server-cert checkout https://svn.code.sf.net/p/xmlrpc-c/code/super_stable/ xmlrpc-c && \
     cd xmlrpc-c && \
     ./configure --enable-libxml2-backend --disable-abyss-server --disable-cgi-server && \
     make && \
@@ -64,7 +64,8 @@ RUN apt-get update && apt-get install -q -y --no-install-recommends \
     libc-ares2 \
     nginx \
     php5-cli \
-    php5-fpm
+    php5-fpm \
+    screen
 
 # Install packages for ruTorrent plugins
 RUN apt-get update && apt-get install -q -y --no-install-recommends \
