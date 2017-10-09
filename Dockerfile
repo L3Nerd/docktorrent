@@ -73,6 +73,8 @@ RUN apt-get update && apt-get install -q -y --no-install-recommends \
     unrar-free \
     unzip
 
+RUN apt-get update && apt-get install -y ca-certificates
+
 # IMPORTANT: Change the default login/password of ruTorrent before build
 RUN htpasswd -cb /usr/share/nginx/html/rutorrent/.htpasswd docktorrent p@ssw0rd
 
